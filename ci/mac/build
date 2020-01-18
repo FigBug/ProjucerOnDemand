@@ -35,10 +35,8 @@ cp -R "$ROOT/modules/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.a
 cd "$ROOT/ci/mac/bin"
 codesign --force -s "$DEV_APP_ID" -v "Projucer.app" --deep --strict --options=runtime
 
-zip -r Projucer.zip Projucer.app
-
 if [ -n "$GITHUB_ACTIONS" ]; then
-  "$ROOT/bin/notarize" Projucer.zip $APPLE_USER $APPLE_PASS com.juce.theprojucer
+  "$ROOT/bin/notarize" Projucer.app $APPLE_USER $APPLE_PASS com.juce.theprojucer
 fi
 
-
+zip -r Projucer.zip Projucer.app
