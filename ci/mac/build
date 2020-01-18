@@ -38,5 +38,7 @@ codesign --force -s "$DEV_APP_ID" -v "Projucer.app" --deep --strict --options=ru
 zip -r Projucer.zip Projucer.app
 
 if [ -n "$GITHUB_ACTIONS" ]; then
-  "$ROOT/bin/notarize" Projucer.zip $APPLE_USER $APPLE_PASS
+  "$ROOT/bin/notarize" Projucer.zip $APPLE_USER $APPLE_PASS com.juce.theprojucer
 fi
+
+
