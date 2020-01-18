@@ -12,14 +12,11 @@ echo on
 cd "%~dp0..\..%"
 set ROOT=%cd%
 
-cd "%ROOT%\JUCE\extras\Projucer\Builds\VisualStudio2019"
+cd "%ROOT%\modules\JUCE\extras\Projucer\Builds\VisualStudio2019"
 "%MSBUILD_EXE%" Projucer.sln /p:VisualStudioVersion=16.0 /m /t:Build /p:Configuration=Release /p:Platform=x64 /p:PreferredToolArchitecture=x64 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-.\x64\Release\App\Projucer.exe --set-global-search-path windows defaultJuceModulePath "%ROOT%\juce\modules" 
-.\x64\Release\App\Projucer.exe --resave "%ROOT%\examples\Demo\Demo.jucer"
-
 mkdir "%ROOT%\ci\win\bin"
-copy cd "%ROOT%\JUCE\extras\Projucer\Builds\VisualStudio2019\x64\Release\App\Demo.exe "%ROOT%\ci\win\bin"
+copy cd "%ROOT%\modules\JUCE\extras\Projucer\Builds\VisualStudio2019\x64\Release\App\Demo.exe "%ROOT%\ci\win\bin"
 
 -r Projucer.zip Projucer.exe
