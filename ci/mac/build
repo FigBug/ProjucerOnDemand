@@ -1,20 +1,23 @@
 #!/bin/sh -e
 set -x
 
-echo "Create a keychain"
-security create-keychain -p nr4aGPyz Keys.keychain
+# Create a temp keychain
+if [ -n "$GITHUB_ACTIONS" ]; then
+  echo "Create a keychain"
+  security create-keychain -p nr4aGPyz Keys.keychain
 
-echo $APPLICATION | base64 -D -o /tmp/Application.p12
-echo $INSTALLER | base64 -D -o /tmp/Installer.p12
+  echo $APPLICATION | base64 -D -o /tmp/Application.p12
+  echo $INSTALLER | base64 -D -o /tmp/Installer.p12
 
-security import /tmp/Application.p12 -t agg -k Keys.keychain -P aym9PKWB -A -T /usr/bin/codesign
-security import /tmp/Installer.p12 -t agg -k Keys.keychain -P aym9PKWB -A -T /usr/bin/codesign
+  security import /tmp/Application.p12 -t agg -k Keys.keychain -P aym9PKWB -A -T /usr/bin/codesign
+  security import /tmp/Installer.p12 -t agg -k Keys.keychain -P aym9PKWB -A -T /usr/bin/codesign
 
-security list-keychains -s Keys.keychain
-security default-keychain -s Keys.keychain
-security unlock-keychain -p nr4aGPyz Keys.keychain
-security set-keychain-settings -l -u -t 13600 Keys.keychain
-security set-key-partition-list -S apple-tool:,apple: -s -k nr4aGPyz Keys.keychain
+  security list-keychains -s Keys.keychain
+  security default-keychain -s Keys.keychain
+  security unlock-keychain -p nr4aGPyz Keys.keychain
+  security set-keychain-settings -l -u -t 13600 Keys.keychain
+  security set-key-partition-list -S apple-tool:,apple: -s -k nr4aGPyz Keys.keychain
+fi
 
 DEV_APP_ID="Developer ID Application: Roland Rabien (3FS7DJDG38)"
 DEV_INST_ID="Developer ID Installer: Roland Rabien (3FS7DJDG38)"
@@ -22,16 +25,18 @@ DEV_INST_ID="Developer ID Installer: Roland Rabien (3FS7DJDG38)"
 ROOT=$(cd "$(dirname "$0")/../.."; pwd)
 cd "$ROOT"
 
-cd "$ROOT/modules/juce/extras/Projucer/Builds/MacOSX/"
+cd "$ROOT/modules/JUCE/extras/Projucer/Builds/MacOSX/"
 xcodebuild -configuration Release || exit 1
 
 rm -Rf "$ROOT/ci/mac/bin"
 mkdir -p "$ROOT/ci/mac/bin"
-cp -R "$ROOT/modules/juce/extras/Projucer/Builds/MacOSX/Release/Projucer.app" "$ROOT/ci/mac/bin"
+cp -R "$ROOT/modules/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app" "$ROOT/ci/mac/bin"
 
 cd "$ROOT/ci/mac/bin"
 codesign --force -s "$DEV_APP_ID" -v "Projucer.app" --deep --strict --options=runtime
 
 zip -r Projucer.zip Projucer.app
 
-"$ROOT/notarize" Projucer.zip $APPLE_USER $APPLE_PASS
+if [ -n "$GITHUB_ACTIONS" ]; then
+  "$ROOT/bin/notarize" Projucer.zip $APPLE_USER $APPLE_PASS
+fi
