@@ -19,4 +19,4 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 mkdir "%ROOT%\ci\win\bin"
 copy cd "%ROOT%\modules\JUCE\extras\Projucer\Builds\VisualStudio2019\x64\Release\App\Demo.exe "%ROOT%\ci\win\bin"
 
--r Projucer.zip Projucer.exe
+zip -r Projucer.zip Projucer.exe
