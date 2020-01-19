@@ -8,4 +8,4 @@ cd ../..
 git add -A
 git commit --message "Update JUCE to hash $1"
 git push
-
+git checkout master
