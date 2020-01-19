@@ -1,0 +1,8 @@
+#!/bin/sh -e
+cd modules/JUCE
+git checkout $1
+cd ../..
+git add -A
+git commit --message "Update JUCE to hash $1"
+git push
+
