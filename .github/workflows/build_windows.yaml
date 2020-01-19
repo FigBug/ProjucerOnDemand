@@ -19,3 +19,5 @@ jobs:
       - name: "Run script"
         run: .\ci\win\build.bat
         shell: cmd
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
