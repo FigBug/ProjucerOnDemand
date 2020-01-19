@@ -1,0 +1,23 @@
+#!/bin/sh
+
+ROOT=$(cd "$(dirname "$0")"; pwd)
+cd "$ROOT"
+
+echo "Root: $ROOT"
+echo "Updating JUCE version"
+
+echo "foo" > butts
+who am i
+
+git checkout figbug/build_$2
+
+cd modules/JUCE
+git checkout $1
+cd ../..
+git add -A
+git commit --message "Update JUCE to hash $1"
+git push
+git checkout master
+git submodule update
+
+echo "Finished";
