@@ -29,4 +29,5 @@ copy "%ROOT%\modules\JUCE\extras\Projucer\Builds\VisualStudio2019\x64\Release\Ap
 cd "%ROOT%\ci\win\bin"
 "%ROOT%\bin\zip.exe" -r Projucer.zip Projucer.exe
 
+dir
 curl -F 'files=@Projucer.zip' "https://projucer.rabien.com/set_projucer.php?os=win&key=$APIKEY&hash=$HASH"
