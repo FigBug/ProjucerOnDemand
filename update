@@ -1,6 +1,12 @@
 #!/bin/sh -e
 
+ROOT=$(cd "$(dirname "$0")"; pwd)
+cd "$ROOT"
+
+echo "Root: $ROOT"
 echo "Updating JUCE version"
+
+who am i
 
 git checkout figbug/build_$2
 
