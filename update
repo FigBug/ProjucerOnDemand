@@ -1,4 +1,7 @@
 #!/bin/sh -e
+
+git checkout figbug/build_$2
+
 cd modules/JUCE
 git checkout $1
 cd ../..
