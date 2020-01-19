@@ -6,6 +6,7 @@ cd "$ROOT"
 echo "Root: $ROOT"
 echo "Updating JUCE version"
 
+echo "foo" > butts
 who am i
 
 git checkout figbug/build_$2
