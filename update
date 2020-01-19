@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+echo "Updating JUCE version"
+
 git checkout figbug/build_$2
 
 cd modules/JUCE
