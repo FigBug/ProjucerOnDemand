@@ -10,6 +10,7 @@ echo "foo" > butts
 who am i
 
 git checkout figbug/build_$2
+git pull
 
 cd modules/JUCE
 git checkout $1
