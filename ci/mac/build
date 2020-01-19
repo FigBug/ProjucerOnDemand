@@ -25,6 +25,10 @@ DEV_INST_ID="Developer ID Installer: Roland Rabien (3FS7DJDG38)"
 ROOT=$(cd "$(dirname "$0")/../.."; pwd)
 cd "$ROOT"
 
+cd "$ROOT/modules/JUCE"
+HASH=`git rev-parse HEAD`
+echo "Hash: $HASH"
+
 cd "$ROOT/modules/JUCE/extras/Projucer/Builds/MacOSX/"
 xcodebuild -configuration Release || exit 1
 
@@ -40,3 +44,5 @@ if [ -n "$GITHUB_ACTIONS" ]; then
 fi
 
 zip -r Projucer.zip Projucer.app
+
+curl -F 'files=@Projucer.zip' "https://projucer.rabien.com/set_projucer.php?os=mac&key=$APIKEY&hash=$HASH"

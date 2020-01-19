@@ -24,3 +24,4 @@ jobs:
           INSTALLER: ${{ secrets.INSTALLER }}
           APPLE_PASS: ${{ secrets.APPLE_PASS }}
           APPLE_USER: ${{ secrets.APPLE_USER }}
+          APIKEY: ${{ secrets.APIKEY }}
