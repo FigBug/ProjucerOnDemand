@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 ROOT=$(cd "$(dirname "$0")"; pwd)
 cd "$ROOT"
