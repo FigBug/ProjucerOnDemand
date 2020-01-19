@@ -30,4 +30,4 @@ cd "%ROOT%\ci\win\bin"
 "%ROOT%\bin\zip.exe" -r Projucer.zip Projucer.exe
 
 dir
-curl -F 'files=@%ROOT%\ci\win\bin\Projucer.zip' "https://projucer.rabien.com/set_projucer.php?os=win&key=$APIKEY&hash=$HASH"
+curl -F "files=@%ROOT%\ci\win\bin\Projucer.zip" "https://projucer.rabien.com/set_projucer.php?os=win&key=$APIKEY&hash=$HASH"
