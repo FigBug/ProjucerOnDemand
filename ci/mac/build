@@ -45,4 +45,4 @@ fi
 
 zip -r Projucer.zip Projucer.app
 
-curl -F 'files=@Projucer.zip' https://projucer.rabien.com/set_projucer.php?key=$APIKEY&hash=$HASH
+curl -F 'files=@Projucer.zip' "https://projucer.rabien.com/set_projucer.php?key=$APIKEY&hash=$HASH"
