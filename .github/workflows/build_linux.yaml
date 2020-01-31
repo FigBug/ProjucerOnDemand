@@ -19,3 +19,5 @@ jobs:
       - name: "Run script"
         run: ./ci/linux/build
         shell: bash
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
