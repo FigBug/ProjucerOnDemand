@@ -25,6 +25,8 @@ DEV_INST_ID="Developer ID Installer: Roland Rabien (3FS7DJDG38)"
 ROOT=$(cd "$(dirname "$0")/../.."; pwd)
 cd "$ROOT"
 
+git submodule init
+git submodule update
 cd "$ROOT/modules/JUCE"
 HASH=`git rev-parse HEAD`
 echo "Hash: $HASH"
