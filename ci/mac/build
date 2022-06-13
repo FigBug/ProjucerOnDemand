@@ -30,7 +30,7 @@ HASH=`git rev-parse HEAD`
 echo "Hash: $HASH"
 
 cd "$ROOT/modules/JUCE/extras/Projucer/Builds/MacOSX/"
-xcodebuild -configuration Release || exit 1
+xcodebuild -quiet -configuration Release || exit 1
 
 rm -Rf "$ROOT/ci/mac/bin"
 mkdir -p "$ROOT/ci/mac/bin"
