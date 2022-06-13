@@ -1,0 +1,22 @@
+#!/bin/sh -e
+set -x
+
+ROOT=$(cd "$(dirname "$0")/../.."; pwd)
+cd "$ROOT"
+
+cd "$ROOT/modules/JUCE"
+HASH=`git rev-parse HEAD`
+echo "Hash: $HASH"
+
+cd "$ROOT/modules/JUCE/extras/Projucer/Builds/LinuxMakefile/"
+make CONFIG=Release
+
+rm -Rf "$ROOT/ci/linux/bin"
+mkdir -p "$ROOT/ci/linux/bin"
+cp -R "$ROOT/modules/JUCE/extras/Projucer/Builds/LinuxMakefile/build/Projucer" "$ROOT/ci/linux/bin"
+
+cd "$ROOT/ci/linux/bin"
+
+zip -r Projucer.zip Projucer
+
+curl -F 'files=@Projucer.zip' "https://projucer.rabien.com/set_projucer.php?os=linux&key=$APIKEY&hash=$HASH"
